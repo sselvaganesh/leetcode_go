@@ -1,12 +1,10 @@
 package easy
 
 
-func TwoSum(nums []int, target int) []int {
-	return twoSum1(nums, target)
-}
+func TwoSum1(nums []int, target int) []int {
 
-
-func twoSum1(nums []int, target int) []int {
+	//Time Complexity: O(n^2)
+	//Space Complexity: O(1) - No additional space
 
 	var result []int
 	var ok bool
@@ -29,5 +27,64 @@ func twoSum1(nums []int, target int) []int {
 
 	return result
 }
+
+
+func TwoSum2(nums []int, target int) []int {
+	
+	var result []int
+	inpMap := make(map[int][]int)
+
+	// Time Complexity: O(n) 
+	// Space Complexity: O(n)
+	for i:=0; i<len(nums); i++ {
+		
+		val, ok := inpMap[nums[i]]
+		if ok {
+			if (nums[i]*2 == target) {
+				result = append(result, val[0])
+				result = append(result, i)
+				break
+			}		
+		} else {		
+			val, ok := inpMap[target-nums[i]]
+			if ok {
+				result = append(result, val[0])
+				result = append(result, i)
+				break
+			}		
+		}
+		
+		val = append(val, i)
+		inpMap[nums[i]] = val		
+	}
+
+	return result
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
