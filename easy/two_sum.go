@@ -1,6 +1,5 @@
 package easy
 
-
 func TwoSum1(nums []int, target int) []int {
 
 	//Time Complexity: O(n^2)
@@ -63,7 +62,30 @@ func TwoSum2(nums []int, target int) []int {
 
 
 
+func TwoSum3(nums []int, target int) []int {
 
+	// Assumption: Input is sorted
+	// Time Complexity: O(n)
+	// Space Complexity: O(1)
+	
+	var result []int
+	
+	for i,j :=0, len(nums)-1; i<j; {
+		
+		if (nums[i]+nums[j] == target) {
+			result = append(result, i)
+			result = append(result, j)
+			break
+		} else if (nums[i]+nums[j] > target) {
+			j--		
+		} else {
+			i++		
+		}
+		
+	}
+
+	return result
+}
 
 
 
