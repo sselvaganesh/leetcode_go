@@ -1,3 +1,4 @@
+
 package easy
 
 func TwoSum1(nums []int, target int) []int {
