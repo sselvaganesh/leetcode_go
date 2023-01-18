@@ -26,7 +26,6 @@ func TestIsPalindrome(t *testing.T) {
 		{inp: 333, result: true},
 		{inp: 0, result: true},
 		//{inp: , result: },
-		//{inp: , result: },
 	}
 		
 	for _, testObj := range tests {

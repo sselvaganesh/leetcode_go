@@ -20,17 +20,27 @@ func RomanToInt(s string) int {
     var result, curVal, nxtVal int
 
     for i:=0; i<len(s); i=i+1 {
-        curVal = getIntVal(rune(s[i]))
-            if (i+1) < len(s) {
-                    if nxtVal=getIntVal(rune(s[i+1])); curVal >= nxtVal {
-                      result = result+curVal
-                    } else {
-                        result = result-curVal+nxtVal
-                        i=i+1
-                    }
-            } else {
-                result = result + curVal
-            }
+
+        curVal = getIntVal(rune(s[i]))    
+        tmp := 0        
+
+        for {
+        	if (i+1) >= len(s){
+        		break
+        	}
+      
+        	nxtVal=getIntVal(rune(s[i+1]))
+        	if nxtVal > curVal {
+        		tmp = nxtVal - curVal - tmp
+        		i++
+        		break
+        	}                       
+        	tmp = tmp + curVal
+        	curVal = nxtVal
+        	i++
+        }
+        
+        result = result + curVal + tmp
     }
 
     return result

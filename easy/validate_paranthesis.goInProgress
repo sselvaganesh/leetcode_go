@@ -1,0 +1,34 @@
+package easy
+
+import (
+	"fmt"
+)
+
+func lastElem(){
+
+
+}
+
+func validate(inp string) {
+
+	m := make(map[byte]byte)
+	m[byte('(')] = byte(')')
+	m[byte('{')] = byte('}')
+	m[byte('[')] = byte(']')	
+
+	
+
+
+
+}
+
+
+
+func validateParanthesis(inp string) {
+
+
+
+
+
+
+}

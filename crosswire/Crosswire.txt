@@ -1,0 +1,25 @@
+
+----------------------------------------------------------------
+
+Given the list of tubles, find the longest path from a node
+
+----------------------------------------------------------------
+
+group {
+	id		string
+	users 		[]string
+	subgroup	[]string
+	entities	[]string
+}
+
+
+find the user is accessed to the given entity
+	U7 -> E1
+
+
+1. if user vs entity not matched
+2. find the attached subgroups, then match it with the group then the entity
+3. then match the subgroup of the child group with the parent group
+
+
+
