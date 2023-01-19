@@ -1,4 +1,4 @@
-package easy
+package romantoint
 
 func getIntVal(inp rune) int {
 

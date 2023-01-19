@@ -1,5 +1,5 @@
 
-package easy
+package twosum
 
 func TwoSum1(nums []int, target int) []int {
 

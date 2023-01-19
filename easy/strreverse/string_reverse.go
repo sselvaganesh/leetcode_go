@@ -1,4 +1,4 @@
-package easy
+package strreverse
 
 func StringReverse(inp string) string {
 

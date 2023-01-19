@@ -1,4 +1,4 @@
-package easy
+package palindrome
 
 func IsPalindrome(inp int) bool {
 	
