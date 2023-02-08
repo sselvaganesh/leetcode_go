@@ -1,5 +1,9 @@
 package intreversal
 
+import (
+	"math"
+)
+
 func reverse(x int) int {
 
 	var absVal, target, rem int
