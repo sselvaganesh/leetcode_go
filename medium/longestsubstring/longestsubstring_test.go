@@ -16,8 +16,10 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 	}
 
 	runtest := func(tc testcase) {
-		if longest := LengthOfLongestSubstring(tc.inp); longest != tc.longest {
+		if longest := LengthOfLongestSubstring1(tc.inp); longest != tc.longest {
 			t.Fatalf("%+v Actual: %v", tc, longest)
+		} else {
+			//t.Logf("Passed: %+v", tc)
 		}
 	}
 
@@ -28,7 +30,9 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 		{testId: 4, inp: "abc", longest: 3},
 		{testId: 5, inp: "abcda", longest: 4},
 		{testId: 6, inp: "abcabcbb", longest: 3},
-		{testId: 7, inp: "dihwofdwnhsvldnzsdxclgeka", longest: 11},
+		{testId: 7, inp: "aab", longest: 2},
+		{testId: 8, inp: "dihwofdwnhsvldnzsdxclgeka", longest: 11},
+
 		//{testId: 1, inp: "", longest: },
 	}
 
