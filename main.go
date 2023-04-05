@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	fmt.Println("Executing Leetcode easy problems")
+	fmt.Println("Leetcode problems")
 }
