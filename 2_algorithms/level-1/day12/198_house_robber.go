@@ -35,23 +35,39 @@ Constraints:
 func Rob(nums []int) int {
 
 	//m:=make(map[int]int)
-	//return dfs(nums, m, 0)
+	//return dfs_rob(nums, m, 0)
 
-	return dp(nums)
+	//return dp1(nums)
+
+	return dp2(nums)
 }
 
-func dp(nums []int) int {
+func dp2(nums []int) int {
 
-	rob1, rob2 := 0, 0
-	for i := 0; i < len(nums); i++ {
-		temp := max(nums[i]+rob1, rob2)
-		rob1 = rob2
-		rob2 = temp
+	if len(nums) == 0 {
+		return 0
+	} else if len(nums) == 1 {
+		return nums[0]
 	}
-	return rob2
+
+	cash := make([]int, len(nums))
+	cash[0] = nums[0]
+	cash[1] = max(nums[0], nums[1])
+
+	for i := 2; i < len(nums); i++ {
+
+		if cash[i-2]+nums[i] > cash[i-1] {
+			cash[i] = cash[i-2] + nums[i]
+		} else {
+			cash[i] = cash[i-1]
+		}
+
+	}
+
+	return cash[len(cash)-1]
 }
 
-func dfs2(nums []int, m map[int]int, idx int) int {
+func dfs_rob(nums []int, m map[int]int, idx int) int {
 
 	if idx >= len(nums) {
 		return 0
@@ -65,7 +81,7 @@ func dfs2(nums []int, m map[int]int, idx int) int {
 		return val
 	}
 
-	val := max(nums[idx]+dfs2(nums, m, idx+2), dfs2(nums, m, idx+1))
+	val := max(nums[idx]+dfs_rob(nums, m, idx+2), dfs_rob(nums, m, idx+1))
 	m[idx] = val
 
 	return val
