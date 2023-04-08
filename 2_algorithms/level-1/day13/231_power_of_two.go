@@ -25,45 +25,41 @@ Explanation: 24 = 16
 Example 3:
 Input: n = 3
 Output: false
- 
+
 Constraints:
 -231 <= n <= 231 - 1
- 
+
 Follow up: Could you solve it without loops/recursion?
 */
 
-
 import (
-    "fmt"
-    "strings"
-    "unsafe"
+	"fmt"
+	"strings"
+	"unsafe"
 )
-
-
 
 func IsPowerOfTwo(n int) bool {
 
-   //return solution1(n)
-    return solution2(n)
+	//return solution1(n)
+	return solution2(n)
 }
 
 func solution2(n int) bool {
 
-    return len(strings.Trim(fmt.Sprintf("%b", n), "0"))==1
+	return len(strings.Trim(fmt.Sprintf("%b", n), "0")) == 1
 
 }
 
-
 func solution1(n int) bool {
 
-    loop:= int(unsafe.Sizeof(n)*4)
+	loop := int(unsafe.Sizeof(n) * 4)
 
-    for i:=0; i<=loop; i++ {
-        if n==(1<<i) {
-            return true
-        }
+	for i := 0; i <= loop; i++ {
+		if n == (1 << i) {
+			return true
+		}
 
-    }
+	}
 
-    return false
+	return false
 }

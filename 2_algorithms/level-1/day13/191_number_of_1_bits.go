@@ -12,7 +12,7 @@ Write a function that takes the binary representation of an unsigned integer and
 Note:
 Note that in some languages, such as Java, there is no unsigned integer type. In this case, the input will be given as a signed integer type. It should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned.
 In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 3, the input represents the signed integer. -3.
- 
+
 Example 1:
 Input: n = 00000000000000000000000000001011
 Output: 3
@@ -27,7 +27,7 @@ Example 3:
 Input: n = 11111111111111111111111111111101
 Output: 31
 Explanation: The input binary string 11111111111111111111111111111101 has a total of thirty one '1' bits.
- 
+
 Constraints:
 The input must be a binary string of length 32.
 
@@ -36,24 +36,21 @@ Follow up: If this function is called many times, how would you optimize it?
 */
 
 import (
-	"strings"
 	"fmt"
+	"strings"
 )
-
 
 func HammingWeight(num uint32) int {
 
-    return strings.Count(fmt.Sprintf("%b", num), "1")
+	return strings.Count(fmt.Sprintf("%b", num), "1")
 
 }
 
 func hammingWeight_bit_manipulation(num uint32) int {
-    var c uint32
-    for num > 0 {
-        c += num&1
-        num = num>>1
-    }
-    return int(c)
+	var c uint32
+	for num > 0 {
+		c += num & 1
+		num = num >> 1
+	}
+	return int(c)
 }
-
-
