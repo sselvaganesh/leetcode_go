@@ -59,6 +59,40 @@ func findBall(grid [][]int) []int {
 	return res
 }
 
+func RecursionSolution(grid [][]int) []int {
+
+	var res []int
+	rows, cols := len(grid), len(grid[0])
+
+	for col := 0; col < cols; col++ {
+		exitCol := findPath(grid, rows, cols, 0, col)
+		res = append(res, exitCol)
+	}
+
+	return res
+}
+
+func findPath(grid [][]int, rows, cols, row, col int) int {
+
+	if (grid[row][col] == 1 && col+1 == cols) || (grid[row][col] == -1 && col-1 < 0) ||
+		(grid[row][col] == 1 && grid[row][col+1] == -1) || (grid[row][col] == -1 && grid[row][col-1] == 1) {
+		return -1
+	} else if row == (rows - 1) {
+
+		if grid[row][col] == 1 && grid[row][col+1] == 1 {
+			return col + 1
+		}
+
+		return col - 1
+	}
+
+	if grid[row][col] == 1 && grid[row][col+1] == 1 {
+		return findPath(grid, rows, cols, row+1, col+1)
+	}
+
+	return findPath(grid, rows, cols, row+1, col-1)
+}
+
 func getExitColumnNum(grid [][]int, rows, cols, col int) int {
 
 	for row := 0; row < rows; row++ {

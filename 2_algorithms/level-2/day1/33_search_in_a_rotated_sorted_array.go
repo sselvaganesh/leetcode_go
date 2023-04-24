@@ -38,11 +38,44 @@ nums is an ascending array that is possibly rotated.
 
 func Search(nums []int, target int) int {
 
-	return binarySearch(nums, target)
+	return binarySearchForRotatedArray(nums, target)
 
 }
 
-func binarySearch(nums []int, target int) int {
+func BinarySearchSolutionForRotatedArray(nums []int, target int) int {
+
+	low, high := 0, len(nums)-1
+
+	for high >= low {
+
+		mid := (low + high) / 2
+		if nums[mid] == target {
+			return mid
+		} else {
+
+			if nums[low] <= nums[mid] {
+				if target >= nums[low] && target < nums[mid] {
+					high = mid - 1
+				} else {
+					low = mid + 1
+				}
+			} else {
+				if target > nums[mid] && target <= nums[high] {
+					low = mid + 1
+				} else {
+					high = mid - 1
+				}
+			}
+
+		}
+
+	}
+
+	return -1
+
+}
+
+func binarySearchForRotatedArray(nums []int, target int) int {
 
 	if len(nums) == 0 {
 		return -1

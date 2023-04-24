@@ -76,3 +76,46 @@ func solution1(nums []int) int {
 	}
 	return doesntExist
 }
+
+func LinearSolution(nums []int) int {
+
+	occur, res := 0, 0
+
+	for _, num := range nums {
+
+		if occur == 0 {
+			res = num
+			occur = 1
+		} else if res == num {
+			occur++
+		} else {
+			occur--
+		}
+
+	}
+
+	return res
+}
+
+func HashTableSolution(nums []int) int {
+
+	m := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		if _, ok := m[nums[i]]; !ok {
+			m[nums[i]] = 1
+		} else {
+			m[nums[i]]++
+		}
+	}
+
+	max := -1
+	key := -1
+
+	for k, val := range m {
+		if val > max {
+			max = val
+			key = k
+		}
+	}
+	return key
+}

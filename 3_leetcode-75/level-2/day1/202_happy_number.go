@@ -49,6 +49,35 @@ func IsHappy(n int) bool {
 
 }
 
+func HappyNumberSolution(n int) bool {
+
+	m := make(map[int]struct{})
+	for {
+		val := squareOfDigits1(n)
+		if val == 1 {
+			return true
+		}
+
+		if _, ok := m[val]; ok {
+			break
+		}
+		m[val] = struct{}{}
+		n = val
+	}
+
+	return false
+}
+
+func squareOfDigits1(n int) int {
+	res := 0
+	for n > 0 {
+		last := n % 10
+		res += (last * last)
+		n /= 10
+	}
+	return res
+}
+
 func squareOfdigits(num int) []int {
 	var res []int
 	for num > 0 {

@@ -89,3 +89,74 @@ func getElems(mat [][]int, trace [][]bool, rows, cols, row, col, dir int) (int, 
 	}
 	return row, col, elems
 }
+
+func SpiralOrderSolution(matrix [][]int) []int {
+
+	var res []int
+
+	visited := make([][]bool, len(matrix))
+	for i := range visited {
+		visited[i] = make([]bool, len(matrix[0]))
+	}
+	row, col, newRow, newCol, direction := 0, 0, 0, 0, 0
+
+	for {
+
+		tot := len(res)
+		newRow, newCol = traverse(matrix, visited, &res, row, col, direction)
+		if tot == len(res) {
+			break
+		}
+
+		direction++
+		direction %= 4
+		row, col = newRow, newCol
+	}
+
+	return res
+}
+
+func traverse(matrix [][]int, visited [][]bool, res *[]int, startRow, startCol, direction int) (int, int) {
+
+	const (
+		right, down, left, up = 0, 1, 2, 3
+	)
+	rows, cols := len(matrix), len(matrix[0])
+
+	row, col := startRow, startCol
+	if direction == right {
+		for col < cols && !visited[row][col] {
+			*res = append(*res, matrix[row][col])
+			visited[row][col] = true
+			col++
+		}
+		col--
+		row++
+	} else if direction == down {
+		for row < rows && !visited[row][col] {
+			*res = append(*res, matrix[row][col])
+			visited[row][col] = true
+			row++
+		}
+		row--
+		col--
+	} else if direction == left {
+		for col >= 0 && !visited[row][col] {
+			*res = append(*res, matrix[row][col])
+			visited[row][col] = true
+			col--
+		}
+		col++
+		row--
+	} else {
+		for row >= 0 && !visited[row][col] {
+			*res = append(*res, matrix[row][col])
+			visited[row][col] = true
+			row--
+		}
+		row++
+		col++
+	}
+
+	return row, col
+}

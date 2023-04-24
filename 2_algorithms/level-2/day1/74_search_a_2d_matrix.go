@@ -37,6 +37,33 @@ func SearchMatrix(matrix [][]int, target int) bool {
 
 }
 
+func binarySearchSolution2Dmatrix(matrix [][]int, target int) bool {
+
+	rows, cols := len(matrix), len(matrix[0])
+	low, high := 0, (rows*cols)-1
+
+	for high >= low {
+
+		mid := (low + high) / 2
+		row, col := indexOf(mid, cols)
+
+		if matrix[row][col] == target {
+			return true
+		} else if target > matrix[row][col] {
+			low = mid + 1
+		} else {
+			high = mid - 1
+		}
+
+	}
+
+	return false
+
+}
+
+func indexOf(num, cols int) (int, int) {
+	return num / cols, num % cols
+}
 func searchMatrixSolution(mat [][]int, target int) bool {
 
 	if mat == nil {

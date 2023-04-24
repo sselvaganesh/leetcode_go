@@ -42,6 +42,40 @@ func SearchRange(nums []int, target int) []int {
 
 }
 
+func BinarySearchSolution(nums []int, target int) []int {
+
+	start, end := binarySearch3(nums, target, false), binarySearch3(nums, target, true)
+
+	return []int{start, end}
+}
+
+func binarySearch3(nums []int, target int, rightSide bool) int {
+
+	low, high := 0, len(nums)-1
+	res := -1
+
+	for high >= low {
+		mid := (low + high) / 2
+		if nums[mid] == target {
+			res = mid
+			if rightSide {
+				low = mid + 1
+			} else {
+				high = mid - 1
+			}
+
+		} else if nums[mid] > target {
+			high = mid - 1
+		} else {
+			low = mid + 1
+		}
+
+	}
+
+	return res
+
+}
+
 func binarySearch2(nums []int, target int) []int {
 
 	return []int{binarySearchWithFlag(nums, target, true), binarySearchWithFlag(nums, target, false)}
