@@ -41,6 +41,10 @@ All the integers of nums are unique.
 nums is sorted and rotated between 1 and n times.
 */
 
+import (
+	"math"
+)
+
 func findMin(nums []int) int {
 
 	min := nums[0]
@@ -64,6 +68,30 @@ func findMin(nums []int) int {
 			}
 			high = mid - 1
 		}
+	}
+
+	return min
+}
+
+func FindMinSolution(nums []int) int {
+
+	low, high, min := 0, len(nums)-1, math.MaxInt
+
+	for high >= low {
+
+		mid := (low + high) / 2
+		if nums[low] <= nums[mid] {
+			if min > nums[low] {
+				min = nums[low]
+			}
+			low = mid + 1
+		} else {
+			if min > nums[mid] {
+				min = nums[mid]
+			}
+			high = mid - 1
+		}
+
 	}
 
 	return min

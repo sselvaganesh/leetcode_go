@@ -33,6 +33,38 @@ func LongestCommonPrefix(strs []string) string {
 	return bruteForceLCP(strs)
 }
 
+func LongestCommonPrefixSolution(strs []string) string {
+
+	if len(strs) == 0 {
+		return ""
+	}
+
+	var res []byte
+	for i := 0; i < len(strs[0]); i++ {
+
+		success := true
+		for j := 1; j < len(strs); j++ {
+
+			if i < len(strs[j]) && strs[0][i] == strs[j][i] {
+				continue
+			} else {
+				success = false
+				break
+			}
+
+		}
+
+		if success {
+			res = append(res, strs[0][i])
+		} else {
+			break
+		}
+
+	}
+
+	return string(res)
+}
+
 func bruteForceLCP(strs []string) string {
 
 	if len(strs) == 0 {

@@ -61,6 +61,35 @@ func Merge(intervals [][]int) [][]int {
 
 }
 
+func MergeIntervalSolution(intervals [][]int) [][]int {
+
+	if len(intervals) == 0 {
+		return nil
+	}
+
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	var res [][]int
+	start, end := intervals[0][0], intervals[0][1]
+
+	for _, next := range intervals[1:] {
+		if next[0] >= start && next[0] <= end {
+			if next[1] > end {
+				end = next[1]
+			}
+		} else {
+			res = append(res, []int{start, end})
+			start = next[0]
+			end = next[1]
+		}
+	}
+
+	res = append(res, []int{start, end})
+	return res
+}
+
 func mergeTwoIntervals(val1, val2 []int) []int {
 
 	min := func(v1, v2 int) int {

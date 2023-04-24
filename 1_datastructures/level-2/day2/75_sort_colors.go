@@ -32,6 +32,10 @@ Follow up: Could you come up with a one-pass algorithm using only constant extra
 
 */
 
+import (
+	"sort"
+)
+
 func SortColors(nums []int) {
 
 	red, blue := 0, len(nums)-1
@@ -53,4 +57,31 @@ func SortColors(nums []int) {
 
 	return
 
+}
+
+func InPlaceSolution(nums []int) {
+
+	const (
+		red, white, blue = 0, 1, 2
+	)
+
+	redPos, bluePos := 0, len(nums)-1
+
+	for i := 0; i <= bluePos; {
+		if nums[i] == red {
+			nums[i], nums[redPos] = nums[redPos], nums[i]
+			redPos++
+			i++
+		} else if nums[i] == blue {
+			nums[i], nums[bluePos] = nums[bluePos], nums[i]
+			bluePos--
+		} else {
+			i++
+		}
+	}
+
+}
+
+func UsingLibFunc(nums []int) {
+	sort.Ints(nums)
 }
