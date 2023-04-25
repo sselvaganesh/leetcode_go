@@ -73,41 +73,38 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 
 }
 
-
 func RemoveNthFromEndSolution(head *ListNode, n int) *ListNode {
 
-    if head==nil {
-        return nil
-    }
+	if head == nil {
+		return nil
+	}
 
-    curNode, nextNode := &ListNode{}, head
-    counter:=0
+	curNode, nextNode := &ListNode{}, head
+	counter := 0
 
-    for nextNode!=nil {
+	for nextNode != nil {
 
-        if curNode!=nil {
-            curNode=curNode.Next
-        }
+		if curNode != nil {
+			curNode = curNode.Next
+		}
 
-        nextNode=nextNode.Next
-        counter++
+		nextNode = nextNode.Next
+		counter++
 
-        if counter==n+1 {
-            curNode=head
-        }
+		if counter == n+1 {
+			curNode = head
+		}
 
-    }
+	}
 
-    if curNode==nil {
-        head=head.Next
-    } else if curNode.Next.Next==nil {
-        curNode.Next=nil
-    } else {
-        curNode.Next=curNode.Next.Next
-    }
+	if curNode == nil {
+		head = head.Next
+	} else if curNode.Next.Next == nil {
+		curNode.Next = nil
+	} else {
+		curNode.Next = curNode.Next.Next
+	}
 
-
-    return head
+	return head
 
 }
-
