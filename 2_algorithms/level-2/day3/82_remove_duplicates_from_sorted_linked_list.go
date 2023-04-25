@@ -66,3 +66,48 @@ func DeleteDuplicates(head *ListNode) *ListNode {
 
 	return head
 }
+
+func deleteDuplicatesSolution(head *ListNode) *ListNode {
+
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var prevNode *ListNode
+	curNode, nextNode := head, head.Next
+
+	for nextNode != nil {
+
+		if curNode.Val == nextNode.Val {
+
+			for ; nextNode != nil && curNode.Val == nextNode.Val; nextNode = nextNode.Next {
+			}
+
+			if nextNode != nil {
+				curNode = nextNode
+				nextNode = nextNode.Next
+			} else {
+				curNode = nil
+			}
+
+			if prevNode != nil {
+				prevNode.Next = curNode
+			}
+
+		} else {
+
+			if prevNode == nil {
+				head = curNode
+			}
+
+			prevNode, curNode, nextNode = curNode, nextNode, nextNode.Next
+		}
+
+	}
+
+	if prevNode == nil {
+		head = curNode
+	}
+
+	return head
+}
