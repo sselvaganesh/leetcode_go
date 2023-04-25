@@ -26,6 +26,78 @@ func GenerateMatrix(n int) [][]int {
 	return solution_generateSpiralMatrix(n)
 }
 
+func GenerateMatrixSolution(n int) [][]int {
+
+	matrix := make([][]int, n)
+	for i := range matrix {
+		matrix[i] = make([]int, n)
+	}
+
+	row, col, direction, num := 0, 0, 0, 1
+	for {
+
+		newRow, newCol, newNum := traverseMatrix(matrix, n, n, row, col, direction, num)
+		if num == newNum {
+			break
+		}
+		direction++
+		direction %= 4
+		row, col, num = newRow, newCol, newNum
+	}
+
+	return matrix
+
+}
+
+func traverseMatrix(matrix [][]int, rows, cols, startRow, startCol, direction, num int) (int, int, int) {
+
+	const (
+		right, down, left = 0, 1, 2
+	)
+
+	row, col := startRow, startCol
+	if direction == right {
+
+		for ; col < cols && matrix[row][col] == 0; col++ {
+			matrix[row][col] = num
+			num++
+		}
+		col--
+		row++
+
+	} else if direction == down {
+
+		for ; row < rows && matrix[row][col] == 0; row++ {
+			matrix[row][col] = num
+			num++
+		}
+		row--
+		col--
+
+	} else if direction == left {
+
+		for ; col >= 0 && matrix[row][col] == 0; col-- {
+			matrix[row][col] = num
+			num++
+		}
+		col++
+		row--
+
+	} else {
+
+		for ; row >= 0 && matrix[row][col] == 0; row-- {
+			matrix[row][col] = num
+			num++
+		}
+		row++
+		col++
+
+	}
+
+	return row, col, num
+
+}
+
 func solution_generateSpiralMatrix(n int) [][]int {
 
 	res := make([][]int, n)

@@ -59,6 +59,31 @@ func Rotate(matrix [][]int) {
 
 }
 
+func RotateImageSolution(matrix [][]int) {
+
+	if matrix == nil {
+		return
+	}
+
+	rows, cols := len(matrix), len(matrix[0])
+	transpose := func(matrix [][]int) {
+		for row := 0; row < rows; row++ {
+			for col := row; col < cols; col++ {
+				matrix[row][col], matrix[col][row] = matrix[col][row], matrix[row][col]
+			}
+		}
+	}
+	transpose(matrix)
+
+	for row := 0; row < rows; row++ {
+		for col1, col2 := 0, cols-1; col2 > col1; col1, col2 = col1+1, col2-1 {
+			matrix[row][col1], matrix[row][col2] = matrix[row][col2], matrix[row][col1]
+		}
+	}
+
+	return
+}
+
 func Rotate2(matrix [][]int) {
 	transpose(matrix)
 	reverseRows(matrix)

@@ -35,6 +35,27 @@ func GetRow(rowIndex int) []int {
 
 }
 
+func PascalsTriangleIISolution(rowIndex int) []int {
+
+	if rowIndex == 0 {
+		return []int{1}
+	} else if rowIndex == 1 {
+		return []int{1, 1}
+	}
+
+	prevRow := PascalsTriangleIISolution(rowIndex - 1)
+
+	result := make([]int, rowIndex+1)
+	result[0], result[rowIndex] = 1, 1
+
+	for i := 1; i < len(result)-1; i++ {
+		result[i] = prevRow[i-1] + prevRow[i]
+	}
+
+	return result
+
+}
+
 func recursion(rowIndex int) []int {
 
 	if rowIndex == 0 {

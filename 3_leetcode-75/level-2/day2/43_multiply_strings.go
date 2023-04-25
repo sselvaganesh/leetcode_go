@@ -58,6 +58,38 @@ func Multiply(num1 string, num2 string) string {
 
 }
 
+func MultiplySolution(num1, num2 string) string {
+
+	if num1 == "0" || num2 == "0" {
+		return "0"
+	}
+
+	result := make([]byte, len(num1)+len(num2))
+
+	pos := len(result) - 1
+
+	for i := len(num1) - 1; i >= 0; i-- {
+		relPos := pos
+		for j := len(num2) - 1; j >= 0; j-- {
+			sum := result[relPos] + (num1[i]-'0')*(num2[j]-'0')
+			result[relPos] = sum % 10
+			result[relPos-1] += (sum / 10)
+			relPos--
+		}
+		pos--
+	}
+
+	for i := 0; i < len(result); i++ {
+		result[i] = result[i] + '0'
+	}
+
+	if result[0] == '0' {
+		result = result[1:]
+	}
+
+	return string(result)
+}
+
 func addToRes(res []int, start, mul int) {
 	rem := 0
 	for mul > 0 {
@@ -80,33 +112,4 @@ func addToRes(res []int, start, mul int) {
 
 func byteToInt(inp byte) int {
 	return int(inp - '0')
-}
-
-func multiply_another_person_solution(num1 string, num2 string) string {
-	if num1 == "0" || num2 == "0" {
-		return "0"
-	}
-
-	n, m := len(num1), len(num2)
-	res := make([]byte, n+m)
-	for i := n - 1; i >= 0; i-- { // 12
-		for j := m - 1; j >= 0; j-- { // 14
-			curr := (num1[i] - '0') * (num2[j] - '0')
-			res[i+j+1] += curr
-			if res[i+j+1] > 9 {
-				res[i+j] += res[i+j+1] / 10
-				res[i+j+1] %= 10
-			}
-		}
-	}
-
-	if res[0] == 0 {
-		res = res[1:]
-	}
-
-	for i := range res {
-		res[i] += '0'
-	}
-
-	return string(res)
 }

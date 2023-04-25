@@ -88,3 +88,37 @@ func threeSum(nums []int) [][]int {
 
 	return result
 }
+
+func SortingSolution(nums []int) [][]int {
+
+	var res [][]int
+
+	sort.Ints(nums)
+	for i := 0; i < len(nums); i++ {
+
+		for j, k := i+1, len(nums)-1; k > j; {
+
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == 0 {
+				res = append(res, []int{nums[i], nums[j], nums[k]})
+
+				for ; j+1 < k && nums[j] == nums[j+1]; j++ {
+				}
+				for ; k-1 > j && nums[k] == nums[k-1]; k-- {
+				}
+				j++
+				k--
+
+			} else if sum > 0 {
+				k--
+			} else {
+				j++
+			}
+		}
+
+		for ; i+1 < len(nums) && nums[i] == nums[i+1]; i++ {
+		}
+	}
+
+	return res
+}
