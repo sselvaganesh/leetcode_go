@@ -74,3 +74,42 @@ func OddEvenList(head *ListNode) *ListNode {
 
 	return head
 }
+
+func oddEvenListSolution(head *ListNode) *ListNode {
+
+	if head == nil {
+		return nil
+	}
+
+	var oddTail, evenHead, evenTail *ListNode
+	curNode := head
+	counter := 1
+
+	for curNode != nil {
+		if counter%2 == 1 {
+			if oddTail == nil {
+				oddTail = curNode
+			} else {
+				oddTail.Next = curNode
+				oddTail = curNode
+			}
+		} else {
+			if evenHead == nil {
+				evenHead, evenTail = curNode, curNode
+			} else {
+				evenTail.Next = curNode
+				evenTail = curNode
+			}
+		}
+		curNode = curNode.Next
+		counter++
+	}
+
+	if evenTail != nil {
+		evenTail.Next = nil
+	}
+	oddTail.Next = evenHead
+
+	return head
+
+}
