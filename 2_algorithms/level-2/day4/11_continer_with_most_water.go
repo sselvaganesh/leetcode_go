@@ -57,6 +57,33 @@ func MaxArea(height []int) int {
 	return max
 }
 
+func maxAreaSolution(height []int) int {
+
+	min := func(val1, val2 int) int {
+		if val1 > val2 {
+			return val2
+		}
+		return val1
+	}
+
+	max := 0
+	for i, j := 0, len(height)-1; j > i; {
+
+		if capacity := (j - i) * min(height[i], height[j]); capacity > max {
+			max = capacity
+		}
+
+		if height[i] > height[j] {
+			j--
+		} else {
+			i++
+		}
+
+	}
+
+	return max
+}
+
 func min(val1, val2 int) int {
 	if val1 > val2 {
 		return val2

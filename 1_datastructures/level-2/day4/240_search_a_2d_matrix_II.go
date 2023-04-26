@@ -58,6 +58,27 @@ func solution2(matrix [][]int, target int) bool {
 
 }
 
+func SearchMatrixSolution(matrix [][]int, target int) bool {
+
+	rows, cols := len(matrix), len(matrix[0])
+	row, col := 0, cols-1
+
+	for row >= 0 && row < rows && col >= 0 && col < cols {
+
+		if matrix[row][col] == target {
+			return true
+		} else if matrix[row][col] > target {
+			col--
+		} else {
+			row++
+		}
+
+	}
+
+	return false
+
+}
+
 func solution1(matrix [][]int, target int) bool {
 
 	if matrix == nil {

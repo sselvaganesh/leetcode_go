@@ -65,6 +65,43 @@ func IntervalIntersection(firstList [][]int, secondList [][]int) [][]int {
 	return res
 }
 
+func intervalIntersectionSolution(firstList [][]int, secondList [][]int) [][]int {
+
+	if firstList == nil || secondList == nil {
+		return nil
+	}
+
+	var result [][]int
+	for i, j := 0, 0; i < len(firstList) && j < len(secondList); {
+
+		if isOverlapping(firstList[i], secondList[j]) {
+			result = append(result, []int{max(firstList[i][0], secondList[j][0]), min(firstList[i][1], secondList[j][1])})
+		}
+
+		if secondList[j][1] > firstList[i][1] {
+			i++
+		} else {
+			j++
+		}
+
+	}
+
+	return result
+}
+
+func isOverlapping(first, second []int) bool {
+
+	return (second[0] >= first[0] && second[0] <= first[1]) || (first[0] >= second[0] && first[0] <= second[1])
+
+}
+
+func max(val1, val2 int) int {
+	if val1 > val2 {
+		return val1
+	}
+	return val2
+}
+
 func intersection(val1, val2 []int) []int {
 
 	min := func(v1, v2 int) int {

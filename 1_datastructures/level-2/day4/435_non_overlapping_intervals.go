@@ -61,3 +61,34 @@ func EraseOverlapIntervals(intervals [][]int) int {
 
 	return removed
 }
+
+func eraseOverlapIntervalsSolution(intervals [][]int) int {
+
+	if len(intervals) == 0 {
+		return 0
+	}
+
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	removed := 0
+	start, end := intervals[0][0], intervals[0][1]
+	for _, interval := range intervals[1:] {
+
+		if interval[0] >= start && interval[0] < end {
+
+			removed++
+
+			if end >= interval[1] {
+				start, end = interval[0], interval[1]
+			}
+		} else {
+			start, end = interval[0], interval[1]
+		}
+
+	}
+
+	return removed
+
+}
