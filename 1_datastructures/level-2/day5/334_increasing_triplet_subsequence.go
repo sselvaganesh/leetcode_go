@@ -70,3 +70,39 @@ func IncreasingTriplet(nums []int) bool {
 	return first && second
 
 }
+
+func increasingTripletSolution(nums []int) bool {
+
+	first, second := false, false
+	min, max := nums[0], nums[0]
+
+	for i := 1; i < len(nums); i++ {
+
+		if first && second {
+			break
+		}
+
+		if min > nums[i] {
+			min = nums[i]
+			continue
+		}
+
+		if !first && nums[i] > min {
+			first = true
+			max = nums[i]
+			continue
+		}
+
+		if first && nums[i] > max {
+			second = true
+		}
+
+		if nums[i] > min && nums[i] < max {
+			max = nums[i]
+		}
+
+	}
+
+	return first && second
+
+}

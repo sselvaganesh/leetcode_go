@@ -25,3 +25,27 @@ Constraints:
 -1000 <= nums[i] <= 1000
 -107 <= k <= 107
 */
+
+func SubarraySum(nums []int, k int) int {
+
+	m := make(map[int]int)
+	m[0] = 1
+	res, sum := 0, 0
+
+	for i := 0; i < len(nums); i++ {
+
+		sum += nums[i]
+		if val, ok := m[sum-k]; ok {
+			res += val
+		}
+
+		if _, ok := m[sum]; !ok {
+			m[sum] = 1
+		} else {
+			m[sum]++
+		}
+
+	}
+
+	return res
+}
