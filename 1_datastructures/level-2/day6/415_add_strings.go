@@ -77,3 +77,42 @@ func AddStrings(num1 string, num2 string) string {
 
 	return string(res)
 }
+
+func addStringsSolution(num1, num2 string) string {
+
+	max := 0
+	if len(num1) > len(num2) {
+		max = len(num1) + 1
+	} else {
+		max = len(num2) + 1
+	}
+
+	result := make([]byte, max)
+	pos := max - 1
+	var sum uint8
+
+	for i, j := len(num1)-1, len(num2)-1; i >= 0 || j >= 0; i, j = i-1, j-1 {
+
+		if i >= 0 && j >= 0 {
+			sum = result[pos] + (num1[i] - '0') + (num2[j] - '0')
+		} else if i >= 0 {
+			sum = result[pos] + (num1[i] - '0')
+		} else {
+			sum = result[pos] + (num2[j] - '0')
+		}
+		result[pos] = sum % 10
+		result[pos-1] = result[pos-1] + (sum / 10)
+		pos--
+	}
+
+	for i := 0; i < len(result); i++ {
+		result[i] += '0'
+	}
+
+	if result[0] == '0' {
+		result = result[1:]
+	}
+
+	return string(result)
+
+}

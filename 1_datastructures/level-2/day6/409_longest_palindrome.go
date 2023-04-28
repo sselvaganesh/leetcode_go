@@ -71,4 +71,40 @@ func initMap() map[byte]int {
 		m[upper[i]] = 0
 	}
 	return m
+
+}
+
+func longestPalindromeSolution(s string) int {
+
+	m := getCharCount(s)
+	res := 0
+	addExtra := false
+	for _, count := range m {
+		if count%2 == 0 {
+			res += count
+		} else {
+			res += (count - 1)
+			if !addExtra {
+				addExtra = true
+			}
+		}
+	}
+
+	if addExtra {
+		return res + 1
+	}
+
+	return res
+}
+
+func getCharCount(s string) map[byte]int {
+	m := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		if _, ok := m[s[i]]; !ok {
+			m[s[i]] = 1
+		} else {
+			m[s[i]]++
+		}
+	}
+	return m
 }
