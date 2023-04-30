@@ -32,3 +32,32 @@ isConnected[i][j] is 1 or 0.
 isConnected[i][i] == 1
 isConnected[i][j] == isConnected[j][i]
 */
+
+func findCircleNum(isConnected [][]int) int {
+
+	provinces := 0
+
+	for row := 0; row < len(isConnected); row++ {
+		for col := 0; col < len(isConnected[row]); col++ {
+			if isConnected[row][col] == 1 {
+				provinces++
+				connect(isConnected, col)
+			}
+		}
+	}
+
+	return provinces
+}
+
+func connect(cities [][]int, fromCity int) {
+
+	for toCity := 0; toCity < len(cities[fromCity]); toCity++ {
+
+		if cities[fromCity][toCity] == 1 {
+			cities[fromCity][toCity] = 0
+			connect(cities, toCity)
+		}
+
+	}
+
+}

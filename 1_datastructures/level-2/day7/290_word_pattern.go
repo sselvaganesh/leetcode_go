@@ -40,31 +40,26 @@ import (
 func WordPattern(pattern string, s string) bool {
 
 	words := strings.Split(s, " ")
-
 	if len(pattern) != len(words) {
 		return false
 	}
 
-	m1 := make(map[byte]string)
-	m2 := make(map[string]byte)
+	pMap, sMap := make(map[byte]string), make(map[string]byte)
+	for i := 0; i < len(pattern); i++ {
 
-	for i, j := 0, 0; i < len(pattern) && j < len(words); i, j = i+1, j+1 {
+		pVal, pOk := pMap[pattern[i]]
+		sVal, sOk := sMap[words[i]]
 
-		val1, ok1 := m1[pattern[i]]
-		val2, ok2 := m2[words[j]]
-
-		if !ok1 && !ok2 {
-			m1[pattern[i]] = words[j]
-			m2[words[j]] = pattern[i]
-			continue
-		} else if ok1 && ok2 {
-			if val1 != words[j] || val2 != pattern[i] {
+		if !pOk && !sOk {
+			pMap[pattern[i]] = words[i]
+			sMap[words[i]] = pattern[i]
+		} else if pOk && sOk {
+			if pVal != words[i] || sVal != pattern[i] {
 				return false
 			}
 		} else {
 			return false
 		}
-
 	}
 
 	return true

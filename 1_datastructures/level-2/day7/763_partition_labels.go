@@ -68,6 +68,49 @@ func initMap(s string) map[byte]int {
 	return m
 }
 
+func partitionLabelsSolution(s string) []int {
+
+	var result []int
+	m := initMap1(s)
+	sub := make(map[byte]struct{})
+	length := 0
+
+	for i := 0; i < len(s); i++ {
+
+		sub[s[i]] = struct{}{}
+		length++
+		m[s[i]]--
+
+		success := true
+		for char, _ := range sub {
+			if m[char] > 0 {
+				success = false
+				break
+			}
+		}
+
+		if success {
+			result = append(result, length)
+			length = 0
+		}
+
+	}
+
+	return result
+}
+
+func initMap1(s string) map[byte]int {
+	m := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		if _, ok := m[s[i]]; !ok {
+			m[s[i]] = 1
+		} else {
+			m[s[i]]++
+		}
+	}
+	return m
+}
+
 func isAllZero(m map[byte]int, curStr map[byte]struct{}) bool {
 
 	for k, _ := range curStr {
