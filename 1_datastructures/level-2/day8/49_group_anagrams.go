@@ -22,7 +22,7 @@ Output: [[""]]
 Example 3:
 Input: strs = ["a"]
 Output: [["a"]]
- 
+
 
 Constraints:
 1 <= strs.length <= 104
@@ -36,37 +36,37 @@ import (
 
 func GroupAnagrams(strs []string) [][]string {
 
-    m:=make(map[string][]string)
-    for i:=0; i<len(strs); i++ {
-        k:=key(strs[i])
-        if val,ok := m[k]; !ok {
-            m[k]=[]string{strs[i]}
-        } else {
-            val=append(val, strs[i])
-            m[k]=val
-        }
-    }
-    return getResult(m)
+	m := make(map[string][]string)
+	for i := 0; i < len(strs); i++ {
+		k := key(strs[i])
+		if val, ok := m[k]; !ok {
+			m[k] = []string{strs[i]}
+		} else {
+			val = append(val, strs[i])
+			m[k] = val
+		}
+	}
+	return getResult(m)
 }
 
 func getResult(inp map[string][]string) [][]string {
 
-    var result [][]string
-    for _, strSlice :=range inp {
-        result=append(result, strSlice)
-    }
-    return result
+	var result [][]string
+	for _, strSlice := range inp {
+		result = append(result, strSlice)
+	}
+	return result
 }
 
 func key(s string) string {
-    slice:=[26]byte{}
-    for i:=0; i<len(s); i++ {
-        slice[s[i]-'a']++
-    }
+	slice := [26]byte{}
+	for i := 0; i < len(s); i++ {
+		slice[s[i]-'a']++
+	}
 
-    var res string
-    for i:=0; i<len(slice); i++ {
-        res=res+strconv.Itoa(int(i))+"|"+strconv.Itoa(int(slice[i]))
-    }
-    return res
+	var res string
+	for i := 0; i < len(slice); i++ {
+		res = res + strconv.Itoa(int(i)) + "|" + strconv.Itoa(int(slice[i]))
+	}
+	return res
 }
