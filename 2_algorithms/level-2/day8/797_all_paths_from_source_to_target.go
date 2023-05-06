@@ -19,7 +19,7 @@ Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
 Example 2:
 Input: graph = [[4,3,1],[3,2,4],[3],[4],[]]
 Output: [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
- 
+
 
 Constraints:
 n == graph.length
@@ -30,4 +30,29 @@ All the elements of graph[i] are unique.
 The input graph is guaranteed to be a DAG.
 */
 
+func AllPathsSourceTarget(graph [][]int) [][]int {
 
+	var result [][]int
+	toDestination(graph, 0, len(graph)-1, &result, []int{})
+	return result
+}
+
+func toDestination(graph [][]int, src, dest int, res *[][]int, path []int) {
+
+	if src == dest {
+		*res = append(*res, append([]int{0}, path...))
+		return
+	}
+
+	nextHop := graph[src]
+	if len(nextHop) == 0 {
+		return
+	}
+
+	for i := 0; i < len(nextHop); i++ {
+		path = append(path, nextHop[i])
+		toDestination(graph, nextHop[i], dest, res, path)
+		path = path[:len(path)-1]
+	}
+
+}

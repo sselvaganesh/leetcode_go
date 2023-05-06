@@ -46,140 +46,132 @@ board[i][j] is 'X' or 'O'.
 	["O","X","O","O","X","O"],
 	["O","X","O","X","O","O"],
 	["O","X","O","O","O","O"]
-	
+
 	]
 
 */
 
 import (
-	//"fmt"
+// "fmt"
 )
 
+func solve(board [][]byte) {
 
-
-func solve(board [][]byte)  {
-
-    //dfs_solution(board)
-    solution2(board)
+	//dfs_solution(board)
+	solution2(board)
 
 }
 
 func solution2(board [][]byte) {
 
-    if board==nil {
-        return
-    }
-    rows, cols := len(board), len(board[0])
+	if board == nil {
+		return
+	}
+	rows, cols := len(board), len(board[0])
 
-    for row:=0; row<rows; row++ {
-        for col:=0; col<cols; col++ {
-            if (row==0 || col==0 || row==rows-1 || col==cols-1) && board[row][col]=='O' {
-                markT(board, rows, cols, row, col)
-            }
-        }
-    }
+	for row := 0; row < rows; row++ {
+		for col := 0; col < cols; col++ {
+			if (row == 0 || col == 0 || row == rows-1 || col == cols-1) && board[row][col] == 'O' {
+				markT(board, rows, cols, row, col)
+			}
+		}
+	}
 
-    findReplace(board, rows, cols, 'O', 'X')
-    findReplace(board, rows, cols, 'T', 'O')
+	findReplace(board, rows, cols, 'O', 'X')
+	findReplace(board, rows, cols, 'T', 'O')
 
 }
 
 func markT(board [][]byte, rows, cols, row, col int) {
 
-    if row<0 || col<0 || row>=rows || col>=cols || board[row][col]!='O' {
-        return
-    }
-    board[row][col]='T'
-    markT(board, rows, cols, row, col-1)
-    markT(board, rows, cols, row, col+1)
-    markT(board, rows, cols, row-1, col)
-    markT(board, rows, cols, row+1, col)
+	if row < 0 || col < 0 || row >= rows || col >= cols || board[row][col] != 'O' {
+		return
+	}
+	board[row][col] = 'T'
+	markT(board, rows, cols, row, col-1)
+	markT(board, rows, cols, row, col+1)
+	markT(board, rows, cols, row-1, col)
+	markT(board, rows, cols, row+1, col)
 }
 
 func findReplace(board [][]byte, rows, cols int, find, replace byte) {
 
-    for row:=0; row<rows; row++ {
-        for col:=0; col<cols; col++ {
-            if board[row][col]==find {
-                board[row][col]=replace
-            }
-        }
-    }
+	for row := 0; row < rows; row++ {
+		for col := 0; col < cols; col++ {
+			if board[row][col] == find {
+				board[row][col] = replace
+			}
+		}
+	}
 
 }
-
-
 
 func dfs_solution(board [][]byte) {
 
-    if board==nil{
-        return
-    }
+	if board == nil {
+		return
+	}
 
-    rows, cols := len(board), len(board[0])
-    for row:=1; row<rows-1; row++ {
-        for col:=1; col<cols-1; col++ {
-            if board[row][col]=='O' {                
-                if isRegion(board, rows, cols, row, col) {                          
-                    board[row][col]='X'
-                }
-            }
-        }
-    }
+	rows, cols := len(board), len(board[0])
+	for row := 1; row < rows-1; row++ {
+		for col := 1; col < cols-1; col++ {
+			if board[row][col] == 'O' {
+				if isRegion(board, rows, cols, row, col) {
+					board[row][col] = 'X'
+				}
+			}
+		}
+	}
 }
-
 
 func isRegion(board [][]byte, rows, cols, row, col int) bool {
 
-     if col-1==0 && board[row][col-1]=='O' {
-    	return false
-    } else if row-1==0 && board[row-1][col]=='O' {
-    	return false
-    } else if row+1==rows-1 && board[row+1][col]=='O' {
-    	return false
-    } else if col+1==cols-1 && board[row][col+1]=='O' {
-    	return false
-    }
+	if col-1 == 0 && board[row][col-1] == 'O' {
+		return false
+	} else if row-1 == 0 && board[row-1][col] == 'O' {
+		return false
+	} else if row+1 == rows-1 && board[row+1][col] == 'O' {
+		return false
+	} else if col+1 == cols-1 && board[row][col+1] == 'O' {
+		return false
+	}
 
-    left, right, up, down := board[row][col-1]=='X',  board[row][col+1]=='X',  board[row-1][col]=='X', board[row+1][col]=='X'
+	left, right, up, down := board[row][col-1] == 'X', board[row][col+1] == 'X', board[row-1][col] == 'X', board[row+1][col] == 'X'
 
-    if left && right && up && down {        
-        return true
-    }
-    
-    board[row][col]='X'
+	if left && right && up && down {
+		return true
+	}
 
-    if !left {
-        if left=isRegion(board, rows, cols, row, col-1); !left {
-            board[row][col]='O'
-            return false
-        }
-    }
-    
-    if !right {
-        if right=isRegion(board, rows, cols, row, col+1); !right {
-            board[row][col]='O'
-            return false
-        }
-    }
-    
-    if !up {
-        if up=isRegion(board, rows, cols, row-1, col); !up {
-            board[row][col]='O'
-            return false
-        }
-    }
-        
-    if !down {
-        if down=isRegion(board, rows, cols, row+1, col); !down {
-            board[row][col]='O'
-            return false
-        }
-    }
+	board[row][col] = 'X'
 
-    board[row][col]='O'
-    return true
+	if !left {
+		if left = isRegion(board, rows, cols, row, col-1); !left {
+			board[row][col] = 'O'
+			return false
+		}
+	}
+
+	if !right {
+		if right = isRegion(board, rows, cols, row, col+1); !right {
+			board[row][col] = 'O'
+			return false
+		}
+	}
+
+	if !up {
+		if up = isRegion(board, rows, cols, row-1, col); !up {
+			board[row][col] = 'O'
+			return false
+		}
+	}
+
+	if !down {
+		if down = isRegion(board, rows, cols, row+1, col); !down {
+			board[row][col] = 'O'
+			return false
+		}
+	}
+
+	board[row][col] = 'O'
+	return true
 }
-
-
-
