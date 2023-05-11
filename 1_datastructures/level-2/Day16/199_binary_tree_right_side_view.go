@@ -19,7 +19,7 @@ Output: [1,3]
 Example 3:
 Input: root = []
 Output: []
- 
+
 
 Constraints:
 The number of nodes in the tree is in the range [0, 100].
@@ -36,41 +36,41 @@ The number of nodes in the tree is in the range [0, 100].
  * }
  */
 
- type TreeNode struct {
-     Val int
-     Left *TreeNode
-     Right *TreeNode
- }
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
 
 func RightSideView(root *TreeNode) []int {
-    
-    if root==nil {
-        return nil
-    }
 
-    var res []int
+	if root == nil {
+		return nil
+	}
 
-    nodes:=[]*TreeNode{root}
-    for len(nodes)>0 {
-        res=append(res, nodes[len(nodes)-1].Val)
-        nodes=getNextLevel(nodes)
-    }
+	var res []int
 
-    return res
+	nodes := []*TreeNode{root}
+	for len(nodes) > 0 {
+		res = append(res, nodes[len(nodes)-1].Val)
+		nodes = getNextLevel(nodes)
+	}
+
+	return res
 }
 
 func getNextLevel(nodes []*TreeNode) []*TreeNode {
 
-    var res []*TreeNode
-    for i:=0; i<len(nodes); i++ {
-        if nodes[i].Left!=nil {
-            res=append(res, nodes[i].Left)
-        }
+	var res []*TreeNode
+	for i := 0; i < len(nodes); i++ {
+		if nodes[i].Left != nil {
+			res = append(res, nodes[i].Left)
+		}
 
-        if nodes[i].Right!=nil {
-            res=append(res, nodes[i].Right)
-        }
-    }
+		if nodes[i].Right != nil {
+			res = append(res, nodes[i].Right)
+		}
+	}
 
-    return res
+	return res
 }

@@ -13,7 +13,7 @@ Basically, the deletion can be divided into two stages:
 
 Search for a node to remove.
 If the node is found, delete the node.
- 
+
 
 Example 1:
 Input: root = [5,3,6,2,4,null,7], key = 3
@@ -30,7 +30,7 @@ Explanation: The tree does not contain a node with value = 0.
 Example 3:
 Input: root = [], key = 0
 Output: []
- 
+
 
 Constraints:
 The number of nodes in the tree is in the range [0, 104].
@@ -38,13 +38,45 @@ The number of nodes in the tree is in the range [0, 104].
 Each node has a unique value.
 root is a valid binary search tree.
 -105 <= key <= 105
- 
+
 
 Follow up: Could you solve it with time complexity O(height of tree)?
 */
 
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
 
+func DeleteNode(root *TreeNode, key int) *TreeNode {
 
+	if root == nil {
+		return nil
+	}
 
+	if key > root.Val {
+		root.Right = deleteNode(root.Right, key)
+	} else if key < root.Val {
+		root.Left = deleteNode(root.Left, key)
+	} else {
 
+		if root.Left == nil {
+			return root.Right
+		} else if root.Right == nil {
+			return root.Left
+		}
 
+		curNode := root.Right
+		for curNode.Left != nil {
+			curNode = curNode.Left
+		}
+		root.Val = curNode.Val
+		root.Right = deleteNode(root.Right, root.Val)
+	}
+
+	return root
+}

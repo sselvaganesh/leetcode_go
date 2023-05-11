@@ -25,15 +25,13 @@ Output: []
 Example 3:
 Input: root = [1,2], targetSum = 0
 Output: []
- 
+
 Constraints:
 The number of nodes in the tree is in the range [0, 5000].
 -1000 <= Node.val <= 1000
 -1000 <= targetSum <= 1000
 
 */
-
-
 
 /**
  * Definition for a binary tree node.
@@ -44,39 +42,39 @@ The number of nodes in the tree is in the range [0, 5000].
  * }
  */
 func PathSum(root *TreeNode, targetSum int) [][]int {
-    
-    if root==nil {
-        return nil
-    }
 
-    var result [][]int
-    helper(root, targetSum, 0, []int{}, &result)
-    return result
+	if root == nil {
+		return nil
+	}
+
+	var result [][]int
+	helper(root, targetSum, 0, []int{}, &result)
+	return result
 
 }
 
 func helper(curNode *TreeNode, target, curSum int, path []int, result *[][]int) {
 
-    path=append(path, curNode.Val)
-    curSum+=curNode.Val
+	path = append(path, curNode.Val)
+	curSum += curNode.Val
 
-    if curNode.Right==nil && curNode.Left==nil {
-        if curSum==target {
-            *result=append(*result, append([]int{}, path...))
-        }
-        return
-    }
+	if curNode.Right == nil && curNode.Left == nil {
+		if curSum == target {
+			*result = append(*result, append([]int{}, path...))
+		}
+		return
+	}
 
-    if curNode.Left!=nil {
-        helper(curNode.Left, target, curSum, path, result)
-    }
-    
-    if curNode.Right!=nil {
-        helper(curNode.Right, target, curSum, path, result)
-    }
-    
-    curSum-=curNode.Val
-    path=path[:len(path)-1]
+	if curNode.Left != nil {
+		helper(curNode.Left, target, curSum, path, result)
+	}
 
-    return
+	if curNode.Right != nil {
+		helper(curNode.Right, target, curSum, path, result)
+	}
+
+	curSum -= curNode.Val
+	path = path[:len(path)-1]
+
+	return
 }
