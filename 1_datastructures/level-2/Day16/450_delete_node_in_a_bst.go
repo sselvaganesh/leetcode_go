@@ -59,9 +59,9 @@ func DeleteNode(root *TreeNode, key int) *TreeNode {
 	}
 
 	if key > root.Val {
-		root.Right = deleteNode(root.Right, key)
+		root.Right = DeleteNode(root.Right, key)
 	} else if key < root.Val {
-		root.Left = deleteNode(root.Left, key)
+		root.Left = DeleteNode(root.Left, key)
 	} else {
 
 		if root.Left == nil {
@@ -70,12 +70,19 @@ func DeleteNode(root *TreeNode, key int) *TreeNode {
 			return root.Left
 		}
 
-		curNode := root.Right
+		prev, curNode := root, root.Right
 		for curNode.Left != nil {
-			curNode = curNode.Left
+			prev, curNode = curNode, curNode.Left
 		}
-		root.Val = curNode.Val
-		root.Right = deleteNode(root.Right, root.Val)
+
+		if prev == root {
+			prev.Val = curNode.Val
+			prev.Right = curNode.Right
+		} else {
+			root.Val = curNode.Val
+			prev.Left = curNode.Right
+		}
+
 	}
 
 	return root
