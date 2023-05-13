@@ -20,7 +20,7 @@ Output: 5
 Example 2:
 Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
 Output: 4
- 
+
 Constraints:
 1 <= k <= nums.length <= 105
 -104 <= nums[i] <= 104
@@ -28,37 +28,36 @@ Constraints:
 
 func FindKthLargest(nums []int, k int) int {
 
-    tot:=len(nums)
-    for i:=(tot/2)-1; i>=0; i-- {
-        buildMaxHeap(nums, tot, i)
-    }
+	tot := len(nums)
+	for i := (tot / 2) - 1; i >= 0; i-- {
+		buildMaxHeap(nums, tot, i)
+	}
 
-    for i:=1; i<=k-1; i++ {
-        nums[0], nums[tot-1] = nums[tot-1], nums[0]
-        tot--
-        buildMaxHeap(nums, tot, 0)        
-    }
+	for i := 1; i <= k-1; i++ {
+		nums[0], nums[tot-1] = nums[tot-1], nums[0]
+		tot--
+		buildMaxHeap(nums, tot, 0)
+	}
 
-    return nums[0]
+	return nums[0]
 }
 
 func buildMaxHeap(nums []int, tot, idx int) {
 
-    l,r:=(2*idx)+1, (2*idx)+2
-    largest:=idx
+	l, r := (2*idx)+1, (2*idx)+2
+	largest := idx
 
-    if l<tot && nums[l]>nums[largest] {
-        largest=l
-    }
+	if l < tot && nums[l] > nums[largest] {
+		largest = l
+	}
 
-    if r<tot && nums[r]>nums[largest] {
-        largest=r
-    }
+	if r < tot && nums[r] > nums[largest] {
+		largest = r
+	}
 
-    if largest!=idx {
-        nums[idx], nums[largest] = nums[largest], nums[idx]
-        buildMaxHeap(nums, tot, largest)
-    }
+	if largest != idx {
+		nums[idx], nums[largest] = nums[largest], nums[idx]
+		buildMaxHeap(nums, tot, largest)
+	}
 
 }
-
